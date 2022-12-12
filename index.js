@@ -3,6 +3,7 @@ if(localStorage.recordatorios != null)
 else
     var recordatorios = [];
 
+
 $(document).ready(function(){
 
     var cant_recordatorios = recordatorios.length;
@@ -54,8 +55,21 @@ $(document).ready(function(){
         }
     });
 
+    //Borrar Tareas
+    $("#borrarTareas").click(function(){
+        $("li").fadeOut("normal", function(){
+            $("li").remove()
+        });
+        localStorage.clear();
+        cant_recordatorios = 0;
+        recordatorios_pendientes = 0;
+        recordatorios = [];
+        $("#cantidad_pendientes").text(`${recordatorios_pendientes} pendientes de ${cant_recordatorios}`);
+    });
+
     cambiarPrioridad();
 });
+
 
 //Función para añadir recordatorios
 function AnadirRecordatorio(){
@@ -96,6 +110,5 @@ function mostrarLocalStorage(){
         $(ul).append(li);
     }
     var cant_pendientes = document.getElementById("cantidad_pendientes");
-    var hechos = document.getElementsByClassName("hechos");
-    $(cant_pendientes).text(`${recordatorios.length - hechos} pendientes de un total de ${recordatorios.length}`);
+    $(cant_pendientes).text(`${recordatorios.length} pendientes de un total de ${recordatorios.length}`);
 }
